@@ -1,26 +1,81 @@
 const { Beneficio, TipoBeneficio } = require ('../models');
+const { Op } = require("sequelize");
 
 class BeneficioController {
     async getAll(req,res) {
         try {
-            const beneficios = await Beneficio.findAll();
+
+            const beneficios = await Beneficio.findAll({
+            include: [{
+                model: TipoBeneficio, 
+                as: "tipo",
+                attributes: { exclude: ['createdAt', 'updatedAt'] }                   
+            }],
+            attributes: { exclude: ['tipoId', 'createdAt', 'updatedAt'] } 
+        });
             res.status(200).json(beneficios);
         }
         catch(err) {
             res.status(400).json({error: err.message});
         }
     }
+    async getById(req, res){
+        try{
+            const beneficio = await Beneficio.findOne({
+                where:{ id: req.params.id },
+                include: [{ 
+                    model: TipoBeneficio, 
+                    as: "tipo",
+                    attributes: { exclude: ['createdAt', 'updatedAt'] }              
+                }],
+                attributes: { exclude: ['tipoId','createdAt', 'updatedAt'] }
+            });
+            if(beneficio){
+                res.status(200).json(beneficio)
+            }else{
+                res.status(400).json({mensagem: 'ID não encontrado'})
+            }
+        }catch(err){
+            res.status(400).json({error: err.message})
+        }
+    }
     async getByTipoBeneficio(req, res){
-        //get by VT/VA/VR, etc
+        try {
+            const beneficios = await Beneficio.findAll({
+                include: [{ 
+                    model: TipoBeneficio, 
+                    as: "tipo",
+                    where: { id: {
+                        [Op.eq]: Number(req.params.id) 
+                    }},
+                    attributes: { exclude: ['createdAt', 'updatedAt'] }                   
+                    },
+                ],
+                attributes: { exclude: ['tipoId', 'createdAt', 'updatedAt'] }
+            })
+            res.status(200).json(beneficios);
+        }
+        catch(err) {
+            res.status(400).json({error: err.message})
+        }
     }
     async create(req,res) {
         try {
-            let beneficioTipo = await TipoBeneficio.findByPk(req.body.tipoBeneficio);       
+            let beneficioTipo = await TipoBeneficio.findByPk(req.body.tipoId);
+
             if (!beneficioTipo) {
                 res.status(400).json({erro: 'Tipo de beneficio não existe'});
             }else{
-                const beneficio = await Beneficio.create(req.body)
-                res.status(201).json(beneficio);
+                
+                let beneficio = {
+                    descricao: req.body.descricao,
+                    tipoDesconto: req.body.tipoDesconto,
+                    desconto: req.body.desconto,
+                    tipoId: Number(req.body.tipoId)
+                }
+
+                const beneficioResponse = await Beneficio.create(beneficio);
+                res.status(201).json({mensagem:`Benefício ${beneficioResponse.id} criado com sucesso`});
             }
         }
         catch(err) {

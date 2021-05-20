@@ -29,6 +29,5 @@ module.exports = (sequelize, Sequelize) => {
         Funcionario.hasMany(models.Login, { foreingKey: 'id', as: 'funcionarioId'})
     }
    
-
     return Funcionario;
 }

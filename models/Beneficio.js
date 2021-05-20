@@ -3,11 +3,13 @@ module.exports = (sequelize, Sequelize) => {
         /* Todos os Campos Exceto: ID, createdAt, updatedAt */
         descricao: Sequelize.STRING,
         tipoDesconto: Sequelize.STRING,
-        desconto: Sequelize.FLOAT
+        desconto: Sequelize.FLOAT,
+        //tipoId: Sequelize.INTEGER
+
     });
 
     Beneficio.associate = (models) => {
-        Beneficio.belongsTo(models.TipoBeneficio, { foreingKey: 'tipoBeneficio', as: 'tipoBeneficio'});
+        Beneficio.belongsTo(models.TipoBeneficio, { foreingKey: 'tipoId', as: "tipo"})
     }
     
     return Beneficio;

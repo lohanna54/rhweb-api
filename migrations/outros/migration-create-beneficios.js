@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.FLOAT
       },
-      tipoBeneficio: {
+      tipoId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

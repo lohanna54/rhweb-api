@@ -104,6 +104,33 @@ class FuncionarioController {
             res.status(400).json({error: err.message})
         }
     }
+    async getByNome (req, res) {
+        let searchNome = '%' + req.query.q + '%';
+        try{
+            const funcionarios = await Funcionario.findAll({
+                where: {nome: { [Op.like] : searchNome } },
+                include: [{ 
+                    model: Situacao, 
+                    as: "situacao",
+                    attributes: { exclude: ['createdAt', 'updatedAt'] }              
+                },
+                { 
+                    model: Login, 
+                    as: "login",
+                    attributes: { exclude: ['FuncionarioId', 'funcionarioId', 'createdAt', 'updatedAt'] } 
+                }],
+                attributes: { exclude: ['loginId', 'situacaoId','SituacaoId', 'createdAt', 'updatedAt'] }
+            });
+            if(funcionarios.length > 0){
+                return res.status(200).json(funcionarios);
+            }  
+            else{
+                return res.status(400).json({mensagem: "Nenhum funcionario encontrado"})
+            }          
+        }catch(e){
+            return res.status(400).json({error: e.message});
+    }
+    }
     async create(req,res) {
         try {
             let funcSituacaoRes = await Situacao.findByPk(req.body.situacaoId);       
@@ -175,7 +202,7 @@ class FuncionarioController {
             if(funcionario){
 
                 let funcObj = {
-                    nome: funcionario.nome,
+                    nome: req.body.nome || funcionario.nome,
                     cpf: funcionario.cpf,
                     dataNascimento: funcionario.dataNascimento,
                     estadoCivil: req.body.estadoCivil || funcionario.dataNascimento,
@@ -197,6 +224,7 @@ class FuncionarioController {
                     foto: req.body.foto || funcionario.foto,
                     situacaoId: Number(req.body.situacaoId) || funcionario.situacaoId
                 }
+                
                 await funcionario.update(funcObj);
                 return res.status(200).json({mensagem: "Funcionário atualizado com sucesso"});
             }else{
