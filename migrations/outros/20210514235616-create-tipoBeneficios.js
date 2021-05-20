@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Beneficio', { 
+    await queryInterface.createTable('TipoBeneficio', { 
       id: {
         primaryKey: true,
         allowNull: false,
@@ -12,22 +12,6 @@ module.exports = {
       descricao: {
         allowNull: false,
         type: Sequelize.STRING
-      },
-      tipoDesconto: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      desconto: {
-        allowNull: false,
-        type: Sequelize.FLOAT
-      },
-      tipoBeneficio: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'TipoBeneficio',
-          key: 'id'
-        },
       },
       createdAt: {
         allowNull: false,
