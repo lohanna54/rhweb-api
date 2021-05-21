@@ -1,7 +1,7 @@
 const { Funcionario, Situacao, Login } = require ('../models/');
 const { Op } = require("sequelize");
-const FUNCSITUAO_ATIVO = 1;
-const FUNCSITUAO_INATIVO = 2;
+const FUNCSITUACAO_ATIVO = 1;
+const FUNCSITUACAO_INATIVO = 2;
 
 class FuncionarioController {
     async getFuncAtivos(req,res) {
@@ -239,7 +239,7 @@ class FuncionarioController {
         try{
             const funcionario = await Funcionario.findByPk(req.params.id);
             if(funcionario){
-                    funcionario.situacaoId = FUNCSITUAO_INATIVO;
+                    funcionario.situacaoId = FUNCSITUACAO_INATIVO;
                     await funcionario.update(funcionario);
                 return res.status(200).json({mensagem: "Funcionario inativado com sucesso"});
             }else{
@@ -253,7 +253,7 @@ class FuncionarioController {
         try{
             const funcionario = await Funcionario.findByPk(req.params.id);
             if(funcionario){
-                    funcionario.situacaoId = FUNCSITUAO_ATIVO;
+                    funcionario.situacaoId = FUNCSITUACAO_ATIVO;
                     await funcionario.update(funcionario);
                 return res.status(200).json({mensagem: "Funcionario reativado com sucesso"});
             }else{
