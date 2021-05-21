@@ -89,7 +89,7 @@ class BeneficioController {
                 let beneficioObj = {
                     descricao: req.body.descricao || beneficio.descricao,
                     tipoBeneficio: Number(req.body.tipoBeneficio) || beneficio.tipoBeneficio,
-                    tipoDesconto: req.body.tipoDesconto || beneficio.tipoDesconto,
+                    tipoId: req.body.tipoId || beneficio.tipoId,
                     desconto: req.body.desconto || beneficio.desconto
                 }
                 await beneficio.update(beneficioObj);

@@ -1,5 +1,7 @@
 const { Funcionario, Situacao, Login } = require ('../models/');
 const { Op } = require("sequelize");
+const FUNCSITUAO_ATIVO = 1;
+const FUNCSITUAO_INATIVO = 2;
 
 class FuncionarioController {
     async getFuncAtivos(req,res) {
@@ -133,11 +135,11 @@ class FuncionarioController {
     }
     async create(req,res) {
         try {
+
             let funcSituacaoRes = await Situacao.findByPk(req.body.situacaoId);       
             if (!funcSituacaoRes) {
                 res.status(400).json({erro: 'Situação não encontrada'});
             }
-
             let funcCPF = await Funcionario.findOne({ where: { cpf: req.body.cpf } });
             if(funcCPF){
                 res.status(400).json({erro: 'CPF já cadastrado'});
@@ -200,7 +202,6 @@ class FuncionarioController {
         try{
             const funcionario = await Funcionario.findByPk(req.params.id);
             if(funcionario){
-
                 let funcObj = {
                     nome: req.body.nome || funcionario.nome,
                     cpf: funcionario.cpf,
@@ -227,6 +228,34 @@ class FuncionarioController {
                 
                 await funcionario.update(funcObj);
                 return res.status(200).json({mensagem: "Funcionário atualizado com sucesso"});
+            }else{
+                return res.status(400).json({mensagem: "Funcionário inexistente"})
+            }
+        }catch(e){
+            return res.status(400).json({error: e.message});
+        }
+    }
+    async desativar(req, res){
+        try{
+            const funcionario = await Funcionario.findByPk(req.params.id);
+            if(funcionario){
+                    funcionario.situacaoId = FUNCSITUAO_INATIVO;
+                    await funcionario.update(funcionario);
+                return res.status(200).json({mensagem: "Funcionario inativado com sucesso"});
+            }else{
+                return res.status(400).json({mensagem: "Funcionário inexistente"})
+            }
+        }catch(e){
+            return res.status(400).json({error: e.message});
+        }
+    }
+    async reativar(req, res){
+        try{
+            const funcionario = await Funcionario.findByPk(req.params.id);
+            if(funcionario){
+                    funcionario.situacaoId = FUNCSITUAO_ATIVO;
+                    await funcionario.update(funcionario);
+                return res.status(200).json({mensagem: "Funcionario reativado com sucesso"});
             }else{
                 return res.status(400).json({mensagem: "Funcionário inexistente"})
             }
