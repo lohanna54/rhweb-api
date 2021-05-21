@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "efc8d328-e97c-4147-8f31-a74eb26e423c",
 		"name": "rh-web-api",
+		"description": "API to manage employees and their respective employment benefits. \nPossible items to be handled separated by folders: **Funcionario, Situacao, Beneficio, BeneficioTipo**\n<hr>\n\nImportant things to know about the created endpoints:\n*(business rules)*\n\nFuncionario hasOne SituacaoId - required <br>\nBeneficio hasOne BeneficioTipo - required <br>\nIt is not possible to delete a BeneficioTipo, because it will be used to register reports of benefits received by employees in the RH-WEB application",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -81,7 +82,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/funcionario/11",
+							"raw": "http://localhost:3000/funcionario/reativar/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -89,7 +90,8 @@
 							"port": "3000",
 							"path": [
 								"funcionario",
-								"11"
+								"reativar",
+								"10"
 							]
 						}
 					},
@@ -101,7 +103,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/funcionario/7",
+							"raw": "http://localhost:3000/funcionario/inativar/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -109,7 +111,8 @@
 							"port": "3000",
 							"path": [
 								"funcionario",
-								"7"
+								"inativar",
+								"10"
 							]
 						}
 					},
@@ -223,7 +226,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "*Funcionario availables routes*: GET(5), POST(1), PUT(3)"
 		},
 		{
 			"name": "Situacao",
@@ -275,7 +279,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "*Situacao availables routes:* GET(1), POST(1)"
 		},
 		{
 			"name": "Beneficio",
@@ -407,7 +412,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "*Beneficio availables routes:* GET(3), POST(1), PUT(1), DELETE(1)"
 		},
 		{
 			"name": "BeneficioTipo",
@@ -508,7 +514,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "*BeneficioTipo availables routes:* GET(2), POST(1), PUT(1)"
 		}
 	]
 }

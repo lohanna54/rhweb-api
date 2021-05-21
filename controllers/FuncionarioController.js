@@ -239,8 +239,8 @@ class FuncionarioController {
         try{
             const funcionario = await Funcionario.findByPk(req.params.id);
             if(funcionario){
-                    funcionario.situacaoId = FUNCSITUACAO_INATIVO;
-                    await funcionario.update(funcionario);
+                    await Funcionario.update({ situacaoId: FUNCSITUACAO_INATIVO }, { where: { id : funcionario.id} });
+                    await Login.update({ ativo: false }, { where: { funcionarioId : funcionario.id} });
                 return res.status(200).json({mensagem: "Funcionario inativado com sucesso"});
             }else{
                 return res.status(400).json({mensagem: "Funcionário inexistente"})
@@ -253,8 +253,8 @@ class FuncionarioController {
         try{
             const funcionario = await Funcionario.findByPk(req.params.id);
             if(funcionario){
-                    funcionario.situacaoId = FUNCSITUACAO_ATIVO;
-                    await funcionario.update(funcionario);
+                    await Funcionario.update({ situacaoId: FUNCSITUACAO_ATIVO }, { where: { id : funcionario.id} });
+                    await Login.update({ ativo: true }, { where: { funcionarioId : funcionario.id} });
                 return res.status(200).json({mensagem: "Funcionario reativado com sucesso"});
             }else{
                 return res.status(400).json({mensagem: "Funcionário inexistente"})
