@@ -3,10 +3,10 @@ module.exports = (sequelize, Sequelize) => {
         /* Todos os Campos Exceto: ID, createdAt, updatedAt */
     });
 
-    // FuncBeneficio.associate = (models) => {
-    //     FuncBeneficio.hasMany(models.Funcionario, { foreingKey: 'funcionarioId', as: 'funcionario'}),
-    //     FuncBeneficio.hasMany(models.Beneficio, { foreingKey: 'beneficioId', as: 'beneficio'})
-    // }
+    FuncBeneficio.associate = (models) => {
+        FuncBeneficio.belongsTo(models.Funcionario, { foreingKey: 'funcionarioId', as: 'funcionario'}),
+        FuncBeneficio.belongsTo(models.Beneficio, { foreingKey: 'beneficioId', as: 'beneficio'})
+    }
    
     return FuncBeneficio;
 }

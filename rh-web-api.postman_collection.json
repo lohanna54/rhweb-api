@@ -34,14 +34,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/funcionario",
+							"raw": "http://localhost:3000/funcionario/novo",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"funcionario"
+								"funcionario",
+								"novo"
 							]
 						}
 					},
@@ -194,14 +195,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/funcionarios",
+							"raw": "http://localhost:3000/funcionarios/ativos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"funcionarios"
+								"funcionarios",
+								"ativos"
 							]
 						}
 					},
@@ -247,14 +249,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/situacao",
+							"raw": "http://localhost:3000/situacao/novo",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"situacao"
+								"situacao",
+								"novo"
 							]
 						}
 					},
@@ -300,14 +303,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/beneficio",
+							"raw": "http://localhost:3000/beneficio/novo",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"beneficio"
+								"beneficio",
+								"novo"
 							]
 						}
 					},
@@ -368,14 +372,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/beneficios",
+							"raw": "http://localhost:3000/beneficios/listar",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"beneficios"
+								"beneficios",
+								"listar"
 							]
 						}
 					},
@@ -398,14 +403,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/beneficiotipo/10",
+							"raw": "http://localhost:3000/beneficios/tipo/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"beneficiotipo",
+								"beneficios",
+								"tipo",
 								"10"
 							]
 						}
@@ -461,14 +467,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/tipobeneficio/10",
+							"raw": "http://localhost:3000/beneficio/tipo/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"tipobeneficio",
+								"beneficio",
+								"tipo",
 								"10"
 							]
 						}
@@ -481,14 +488,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/tipobeneficios",
+							"raw": "http://localhost:3000/beneficios/tipos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"tipobeneficios"
+								"beneficios",
+								"tipos"
 							]
 						}
 					},
@@ -500,14 +508,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/tipobeneficio/10",
+							"raw": "http://localhost:3000/beneficio/tipo/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"tipobeneficio",
+								"beneficio",
+								"tipo",
 								"10"
 							]
 						}
@@ -516,6 +525,135 @@
 				}
 			],
 			"description": "*BeneficioTipo availables routes:* GET(2), POST(1), PUT(1)"
+		},
+		{
+			"name": "FuncionarioBeneficios",
+			"item": [
+				{
+					"name": "FuncBeneficioController.getFuncBeneficiados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/beneficios/funcionario/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"beneficios",
+								"funcionario",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FuncBeneficioController.getBeneficiosByFunc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/funcionarios/beneficio/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionarios",
+								"beneficio",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FuncBeneficioController.getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/beneficios/aplicados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"beneficios",
+								"aplicados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FuncBeneficioController.insertBenefitsList",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"funcionarioId\": \"7\",\r\n    \"beneficios\": \"1,2,4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/funcionario/beneficios/inserir/lote",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionario",
+								"beneficios",
+								"inserir",
+								"lote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FuncBeneficioController.insertBenefit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"funcionarioId\": \"7\",\r\n    \"beneficioId\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/funcionario/beneficio/inserir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"funcionario",
+								"beneficio",
+								"inserir"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "*FuncBeneficios availables routes:* GET(3), POST(2)"
 		}
 	]
 }

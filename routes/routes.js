@@ -3,6 +3,7 @@ const FuncionarioController = require('../controllers/FuncionarioController');
 const SituacaoController = require('../controllers/SituacaoController');
 const BeneficioController = require('../controllers/BeneficioController');
 const TipoBeneficioController = require('../controllers/TipoBeneficioController');
+const FuncBeneficioController = require('../controllers/FuncBeneficioController');
 /* IMPORTAR CONTROLLERS */
 
 const routes = Router();
@@ -11,39 +12,40 @@ routes.get('/', (req,res) => {
     res.status(200).send({workspace: "rhweb-api"});
 })
 
-//Funcionario routes ->> 
-routes.post('/funcionario', FuncionarioController.create);
+//Funcionario routes
+routes.post('/funcionario/novo', FuncionarioController.create);
 routes.get('/funcionario/:id', FuncionarioController.getById);
 routes.get('/funcionario', FuncionarioController.getByCpf);
-routes.get('/funcionarionome', FuncionarioController.getByNome);
+routes.get('/funcionarionome', FuncionarioController.getByNome); // req.query.q
 routes.put('/funcionario/:id', FuncionarioController.update);
-routes.get('/funcionarios', FuncionarioController.getFuncAtivos);
-routes.get('/desligados', FuncionarioController.getFuncInativos);
+routes.get('/funcionarios/ativos', FuncionarioController.getFuncAtivos);
+routes.get('/funcionarios/desligados', FuncionarioController.getFuncInativos);
 routes.put('/funcionario/inativar/:id', FuncionarioController.desativar);
 routes.put('/funcionario/reativar/:id', FuncionarioController.reativar);
 
 //Situacao Funcionario routes
 routes.get('/situacoes', SituacaoController.getAll);
-routes.post('/situacao', SituacaoController.create);
+routes.post('/situacao/novo', SituacaoController.create);
 
 //Beneficio routes
-routes.get('/beneficios', BeneficioController.getAll);
+routes.get('/beneficios/listar', BeneficioController.getAll);
 routes.get('/beneficio/:id', BeneficioController.getById);
-routes.get('/beneficiotipo/:id', BeneficioController.getByTipoBeneficio);
+routes.get('/beneficios/tipo/:id', BeneficioController.getByTipoBeneficio);
 routes.put('/beneficio/:id', BeneficioController.update);
 routes.delete('/beneficio/:id', BeneficioController.delete);
-routes.post('/beneficio', BeneficioController.create);
+routes.post('/beneficio/novo', BeneficioController.create);
 
 //TipoBeneficio routes
-routes.get('/tipobeneficios', TipoBeneficioController.getAll);
-routes.get('/tipobeneficio/:id', TipoBeneficioController.getById);
-routes.post('/tipobeneficio', TipoBeneficioController.create);
-routes.put('/tipobeneficio/:id', TipoBeneficioController.update);
+routes.get('/beneficios/tipos', TipoBeneficioController.getAll);
+routes.get('/beneficio/tipo/:id', TipoBeneficioController.getById);
+routes.post('/beneficio/tipo/novo', TipoBeneficioController.create);
+routes.put('/beneficio/tipo/:id', TipoBeneficioController.update);
 
-//PENDENTE:
-//Implementar modelo FUNC_BENEFICIO (N funcionarios x N beneficios)
-//Fazer ajustes necessários no controller de funcionario para tratar IDs de beneficio no cadastro e update
-//Adicionar documentação do projeto com swagger
-//Definir servidor de banco e de arquivos (p/ salvar fotos dos funcionários)
+//FuncBeneficio routes
+routes.post('/funcionario/beneficio/inserir', FuncBeneficioController.insertBenefit);
+routes.post('/funcionario/beneficios/inserir/lote', FuncBeneficioController.insertBenefitsList);
+routes.get('/beneficios/aplicados', FuncBeneficioController.getAll); // retorna todos os beneficios e respectivos funcionarios
+routes.get('/beneficios/funcionario/:id', FuncBeneficioController.getBeneficiosByFunc); //retorna beneficios de um funcionario
+routes.get('/funcionarios/beneficio/:id', FuncBeneficioController.getFuncBeneficiados); // retorna os funcionarios de um beneficio
 
 module.exports = routes;

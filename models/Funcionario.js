@@ -27,6 +27,9 @@ module.exports = (sequelize, Sequelize) => {
         Funcionario.belongsTo(models.Situacao, { foreingKey: 'situacaoId', as: 'situacao'})
         Funcionario.belongsTo(models.Login, { foreingKey: 'loginId', as: 'login'})
         Funcionario.hasMany(models.Login, { foreingKey: 'id', as: 'funcionarioId'})
+
+        Funcionario.hasMany(models.FuncBeneficio, { foreingKey: 'funcionarioId', as: 'funcionario'}),
+        Funcionario.hasMany(models.FuncBeneficio, { foreingKey: 'beneficioId', as: 'beneficio'})
     }
    
     return Funcionario;
