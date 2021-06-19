@@ -94,6 +94,56 @@ class FuncBeneficioController {
             res.status(400).json({erro: err.message});
         }
     }
+    async update(req, res){
+        try {
+            let funcionario = await Funcionario.findByPk(req.body.funcionarioId);
+            const beneficios = req.body.beneficios.split(',').map(Number);
+            let notInsertedBenefits = [];
+
+            if (!funcionario) {
+                res.status(400).json({erro: 'ID de funcionario nao encontrada'});
+            }else{
+                    
+                await FuncBeneficio.destroy({
+                    where:{ funcionarioId: funcionario.id }
+                });
+            }
+            for (let i = 0; i < beneficios.length; i++) {
+                let _beneficioId = beneficios[i];
+               
+                let existentBenefit = false;
+                let beneficio = await Beneficio.findByPk(_beneficioId);
+
+                if(beneficio != null){
+                    existentBenefit = true;
+                }
+                if(!existentBenefit){
+                    notInsertedBenefits.push(_beneficioId);
+                    if(notInsertedBenefits.length == beneficios.length){
+                        res.status(400).json({erro: 'Falha. Beneficios inexistentes.'});
+                    }
+                }else{
+                    let funcBeneficioObj = {
+                        funcionarioId: funcionario.id,
+                        beneficioId: _beneficioId
+                    }
+                    
+                    await FuncBeneficio.create(funcBeneficioObj);
+                }
+            }
+           
+            res.status(200).json({
+                "mensagem": "Processo finalizado",
+                "detalhe": {
+                    "sucesso": `${beneficios.length-notInsertedBenefits.length}`,
+                    "falha":`${notInsertedBenefits.length}`,
+                }
+            });
+
+        }catch(err) {
+            res.status(400).json({erro: err.message});
+        }
+    }
     async getAll(req, res){
         try {
             const beneficiosAtivos = await FuncBeneficio.findAll({

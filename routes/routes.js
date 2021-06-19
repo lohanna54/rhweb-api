@@ -44,6 +44,7 @@ routes.put('/beneficio/tipo/:id', TipoBeneficioController.update);
 //FuncBeneficio routes
 routes.post('/funcionario/beneficio/inserir', FuncBeneficioController.insertBenefit);
 routes.post('/funcionario/beneficios/inserir/lote', FuncBeneficioController.insertBenefitsList);
+routes.put('/funcionario/beneficios/atualizar', FuncBeneficioController.update); // substitui os beneficios atuais de um funcionario
 routes.get('/beneficios/aplicados', FuncBeneficioController.getAll); // retorna todos os beneficios e respectivos funcionarios
 routes.get('/beneficios/funcionario/:id', FuncBeneficioController.getBeneficiosByFunc); //retorna beneficios de um funcionario
 routes.get('/funcionarios/beneficio/:id', FuncBeneficioController.getFuncBeneficiados); // retorna os funcionarios de um beneficio
