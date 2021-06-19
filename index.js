@@ -5,4 +5,6 @@ const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(routes);
-app.listen(3000 || process.env.PORT);
+const DEFAULT_PORT = process.env.PORT || 3000;
+
+app.listen(DEFAULT_PORT);
