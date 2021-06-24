@@ -1,5 +1,6 @@
 const { Funcionario, Situacao, Login } = require ('../models/');
 const { Op } = require("sequelize");
+const CryptoJS = require("crypto-js");
 const FUNCSITUACAO_ATIVO = 1;
 const FUNCSITUACAO_INATIVO = 2;
 
@@ -144,9 +145,13 @@ class FuncionarioController {
             if(funcCPF){
                 res.status(400).json({erro: 'CPF já cadastrado'});
             }else {
+
+                const regexCpf = /(\.|-)/gm;
+                let cpfFormated = req.body.cpf.replace(regexCpf, "");
+
                 let funcionario = {
                     nome: req.body.nome,
-                    cpf: req.body.cpf,
+                    cpf: cpfFormated || req.body.cpf,
                     dataNascimento: req.body.dataNascimento,
                     estadoCivil: req.body.estadoCivil,
                     sexo: req.body.sexo,
@@ -179,12 +184,16 @@ class FuncionarioController {
                 async function createLogin(){
                     let usuarioObj = funcResponse.nome.split(' ');
                     let userLogin = usuarioObj[0]+'.'+usuarioObj[usuarioObj.length-1];
+                    userLogin = userLogin.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+                    let encodedPass = CryptoJS.AES.encrypt(funcResponse.cpf, process.env.ACCESS_SECRET).toString();
 
                     let funcionarioLogin = {
                         ativo: true,
                         funcionarioId: funcResponse.id,
                         usuario: userLogin,
-                        senha: funcResponse.cpf
+                        senha: encodedPass,
+                        isAdmin: false,
                     }
                     console.log(funcionarioLogin)
                     const loginReponse = await Login.create(funcionarioLogin);
