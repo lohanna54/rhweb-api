@@ -17,7 +17,7 @@ routes.get('/', Authenticate([ROLE_ADMIN]), (req,res) => {
 });
 
 //JWT auth routes
-routes.post('/login', Authenticate([ROLE_ADMIN, ROLE_USER]), LoginController.login);
+routes.post('/login', LoginController.login);
 routes.post('/logout', LoginController.logout); 
 
 //Funcionario routes
