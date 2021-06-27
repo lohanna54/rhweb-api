@@ -51,7 +51,8 @@ class LoginController {
 
                 res.status(200).json({ 
                     auth: true, 
-                    token: token
+                    token: token,
+                    id: userId
                 });
 
             }else{

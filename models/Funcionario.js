@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
         cep: Sequelize.STRING,
         numero: Sequelize.STRING,
         complemento: Sequelize.STRING,
+        logradouro: Sequelize.STRING,
+        cidade: Sequelize.STRING,
+        bairro: Sequelize.STRING,
         celular: Sequelize.STRING,
         fixo: Sequelize.STRING,
         emergencia: Sequelize.STRING,
@@ -18,6 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         parentesco: Sequelize.STRING,
         deficiencia: Sequelize.STRING,
         cargo: Sequelize.STRING,
+        dtAdm: Sequelize.STRING,
         ferias: Sequelize.STRING,
         salario: Sequelize.FLOAT,
         foto: Sequelize.STRING
