@@ -194,6 +194,7 @@ class FuncionarioController {
                         usuario: userLogin,
                         senha: encodedPass,
                         isAdmin: false,
+                        token: null
                     }
                     console.log(funcionarioLogin)
                     const loginReponse = await Login.create(funcionarioLogin);

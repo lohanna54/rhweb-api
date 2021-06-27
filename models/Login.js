@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
           ultimoLogin:  Sequelize.DATE,
           usuario: Sequelize.STRING,
           senha: Sequelize.STRING,
-          isAdmin:Sequelize.BOOLEAN
+          isAdmin:Sequelize.BOOLEAN,
+          token: Sequelize.STRING
     });
 
     Login.associate = (models) => {
