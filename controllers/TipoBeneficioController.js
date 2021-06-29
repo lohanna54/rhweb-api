@@ -26,7 +26,7 @@ class TipoBeneficioController {
         }catch(err){
             res.status(400).json({error: err.message})
         }
-}
+    }
     async create(req,res) {
         try {
             if(req.body.descricao){
@@ -59,7 +59,7 @@ class TipoBeneficioController {
         }catch(e){
             return res.status(400).json({error: e.message});
         }
-     
+        
     }
 }
 

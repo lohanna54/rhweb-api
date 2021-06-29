@@ -5,9 +5,9 @@ module.exports = (sequelize, Sequelize) => {
         tipoDesconto: Sequelize.STRING,
         desconto: Sequelize.FLOAT,
         //tipoId: Sequelize.INTEGER
-
+        
     });
-
+    
     Beneficio.associate = (models) => {
         Beneficio.belongsTo(models.TipoBeneficio, { foreingKey: 'tipoId', as: "tipo"})
     }

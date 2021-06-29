@@ -10,7 +10,7 @@ class SituacaoController {
             res.status(400).json({error: err.message});
         }
     }
-
+    
     async create(req,res) {
         try {
             const funcSituacao = await Situacao.create(req.body)

@@ -1,4 +1,5 @@
 const { Router } = require ('express');
+const fs = require('fs');
 const routes = Router();
 
 const FuncionarioController = require('../controllers/FuncionarioController');
@@ -12,13 +13,15 @@ const Authenticate = require('../middlewares/AuthMiddleware');
 const ROLE_USER = 'employee';
 const ROLE_ADMIN = 'administrator';
 
-routes.get('/', Authenticate([ROLE_ADMIN]), (req,res) => {
-    res.status(200).send({workspace: "rhweb-api"});
+//Default route for documentation
+routes.get('/', (req,res) => {
+    let API_DOCS = fs.readFileSync('./views/rh-web-docs.html', 'utf8')
+    res.send(API_DOCS)
 });
 
 //JWT auth routes
 routes.post('/login', LoginController.login);
-routes.post('/logout', LoginController.logout); 
+routes.put('/logout', Authenticate([ROLE_ADMIN, ROLE_USER]), LoginController.logout); 
 
 //Funcionario routes
 routes.post('/funcionario/novo', Authenticate([ROLE_ADMIN]), FuncionarioController.create);
