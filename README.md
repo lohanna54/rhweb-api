@@ -1,5 +1,8 @@
 # rhweb-api
-###### Documentação completa da API: _https://documenter.getpostman.com/view/13895802/TzeZDRxW_
+###### Documentação completa da API:
+_https://rh-web-api.herokuapp.com/_<br>
+_https://documenter.getpostman.com/view/13895802/TzeZDRxW_
+
 ##### Instalação dos componentes utilizados:
 
 ##### Requisições HTTP:<br>
