@@ -13,8 +13,27 @@ const Authenticate = require('../middlewares/AuthMiddleware');
 const ROLE_USER = 'employee';
 const ROLE_ADMIN = 'administrator';
 
-//Default route for documentation
+//Main route
 routes.get('/', (req,res) => {
+    res.status(200).json({
+        apiSettings: { 
+            "name": "rh-web",
+            "release-date":"06-2021",
+            "main-repository":"https://github.com/lohanna54/rhweb-api",
+            "available-routes-documentation":"/docs"
+        },
+        developersInfo:{ 
+            "college":"Centro Univeristário UNA",
+            "course":"Análise e desenvolvimento de sistemas",
+            "current-period":"Third period",
+            "course-unit":"Sistemas distribuídos",
+            "teacher-leader": "Ramon Pereira"
+        }
+    });
+});
+
+//Documentation route
+routes.get('/docs', (req,res) => {
     let API_DOCS = fs.readFileSync('./views/rh-web-docs.html', 'utf8')
     res.send(API_DOCS)
 });
