@@ -45,7 +45,7 @@ async getFuncInativos(req,res) {
                 attributes: { exclude: ['FuncionarioId', 'funcionarioId', 'createdAt', 'updatedAt'] } 
             }],
             attributes: { exclude: ['loginId', 'situacaoId','SituacaoId', 'createdAt', 'updatedAt'],
-            include: [['updatedAt','ultima atualizacao']]  }
+            include: [['updatedAt','ultima_atualizacao']]  }
         })
         res.status(200).json(funcionarios);
     }
