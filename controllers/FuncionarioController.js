@@ -1,5 +1,6 @@
 const { Funcionario, Situacao, Login } = require ('../models/');
 const { Op } = require("sequelize");
+const fs = require('fs');
 const CryptoJS = require("crypto-js");
 const FUNCSITUACAO_ATIVO = 1;
 const FUNCSITUACAO_INATIVO = 2;
@@ -136,18 +137,19 @@ async getByNome (req, res) {
 }
 async create(req,res) {
     try {
-        
+            
         let funcSituacaoRes = await Situacao.findByPk(req.body.situacaoId);       
         if (!funcSituacaoRes) {
             res.status(400).json({erro: 'Situação não encontrada'});
         }
-        let funcCPF = await Funcionario.findOne({ where: { cpf: req.body.cpf } });
+        const regexCpf = /(\.|-)/gm;
+        let cpfFormated = req.body.cpf.replace(regexCpf, "");
+
+        let funcCPF = await Funcionario.findOne({ where: { cpf: cpfFormated } });
         if(funcCPF){
             res.status(400).json({erro: 'CPF já cadastrado'});
         }else {
-            
-            const regexCpf = /(\.|-)/gm;
-            let cpfFormated = req.body.cpf.replace(regexCpf, "");
+            let AVATAR_PICTURE = fs.readFileSync('./assets/avatar-pic-base64-string.txt', 'utf-8');
             
             let funcionario = {
                 nome: req.body.nome,
@@ -173,7 +175,7 @@ async create(req,res) {
                 cargo: req.body.cargo,
                 ferias: req.body.ferias,
                 salario: req.body.salario,
-                foto: req.body.foto,
+                foto: req.body.foto || AVATAR_PICTURE,
                 situacaoId: Number(req.body.situacaoId)
             }
             
