@@ -149,7 +149,7 @@ async create(req,res) {
         if(funcCPF){
             res.status(400).json({erro: 'CPF já cadastrado'});
         }else {
-            let AVATAR_PICTURE = fs.readFileSync('./assets/avatar-pic-base64-string.txt', 'utf-8');
+            let AVATAR_PICTURE = 'https://i.imgur.com/uOLw2Yo.png';
             
             let funcionario = {
                 nome: req.body.nome,
