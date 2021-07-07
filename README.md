@@ -3,6 +3,9 @@
 _https://rh-web-api.herokuapp.com/docs_ ou<br> 
 _https://documenter.getpostman.com/view/13895802/TzeZDRxW_
 
+###### Vídeo de apresentação do trabalho:
+_https://drive.google.com/file/d/1xAcydt5r5ODn8VZIlR8HjhuIMyHmJ5yY/view?usp=sharing_
+
 ##### Instalação dos componentes utilizados:
 
 ##### Requisições HTTP:<br>
